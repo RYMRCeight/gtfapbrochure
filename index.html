@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GTFAP Brochure - Tangalan Official</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+    <style>
+        :root {
+            --blue: #003399;
+            --red: #b30000;
+            --gold: #ffd700;
+            --bg: #ffffff;
+        }
+
+        * { box-sizing: border-box; -webkit-print-color-adjust: exact; }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #525659;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+        }
+
+        /* Brochure Paper Styling (Standard Landscape) */
+        .brochure {
+            width: 11in; 
+            height: 8.5in;
+            background: var(--bg);
+            display: flex;
+            box-shadow: 0 0 20px rgba(0,0,0,0.5);
+            overflow: hidden;
+            position: relative;
+        }
+
+        /* Fold Lines */
+        .fold {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            width: 1px;
+            background: rgba(0,0,0,0.1);
+            z-index: 10;
+        }
+        .fold-1 { left: 33.33%; }
+        .fold-2 { left: 66.66%; }
+
+        /* Column Styling */
+        .panel {
+            width: 33.33%;
+            height: 100%;
+            padding: 45px 30px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* CONTENT PANELS STYLING */
+        h2 { 
+            font-size: 1.1rem; 
+            color: var(--blue); 
+            margin-bottom: 12px; 
+            border-bottom: 2px solid var(--red); 
+            padding-bottom: 5px;
+            text-transform: uppercase;
+            font-weight: 700;
+        }
+        
+        p, li { font-size: 0.82rem; line-height: 1.4; margin-bottom: 6px; color: #333; }
+        ul { padding-left: 20px; margin: 0; list-style-type: square; }
+        
+        .money-box {
+            background: var(--blue);
+            color: white;
+            padding: 15px;
+            border-radius: 10px;
+            text-align: center;
+            margin: 10px 0;
+        }
+        .amount { font-size: 2rem; font-weight: 800; color: var(--gold); }
+
+        .note-box {
+            font-size: 0.72rem;
+            background: #fff4f4;
+            padding: 10px;
+            border-radius: 8px;
+            border-left: 4px solid var(--red);
+            margin-top: 8px;
+        }
+
+        .qr-container {
+            margin-top: auto;
+            text-align: center;
+            background: #f8f9fa;
+            padding: 12px;
+            border-radius: 10px;
+            border: 1px solid #ddd;
+        }
+
+        #qrcode img { margin: 0 auto; display: block; }
+
+        /* FRONT COVER PANEL */
+        .panel-front {
+            background: linear-gradient(135deg, var(--blue) 0%, #001f5c 100%);
+            color: white;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center; 
+            justify-content: center; 
+            padding: 40px;
+        }
+
+        .seal-large {
+            width: 180px;
+            height: 180px;
+            margin-bottom: 25px;
+            background: white;
+            padding: 12px;
+            border-radius: 50%;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            object-fit: contain;
+        }
+
+        .panel-title { 
+            font-size: 1.35rem; 
+            font-weight: 700; 
+            line-height: 1.2;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+        }
+
+        .location-box {
+            margin-top: 30px;
+            font-size: 0.85rem;
+            background: rgba(255,255,255,0.15);
+            padding: 12px;
+            border-radius: 12px;
+            border: 1px solid rgba(255,255,255,0.1);
+            width: 100%;
+        }
+
+        @media print {
+            body { padding: 0; background: none; }
+            .brochure { box-shadow: none; width: 11in; height: 8.5in; }
+            .fold { display: none; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="brochure">
+    <div class="fold fold-1"></div>
+    <div class="fold fold-2"></div>
+
+    <div class="panel">
+        <h2>🎯 Qualifications</h2>
+        <ul>
+            <li>Natural-born Filipino</li>
+            <li>Tangalan Resident (3+ years)</li>
+            <li>Enrolled in college within Aklan</li>
+            <li>No grade lower than 75%</li>
+            <li>Income max ₱130,000/yr</li>
+            <li>Voter of Tangalan (Applicant & Parent/s)</li>
+            <li>No other scholarships</li>
+        </ul>
+
+        <h2 style="margin-top: 20px;">📋 Requirements</h2>
+        <ul style="font-size: 0.78rem;">
+            <li>Application Form with (2x2 ID)</li>
+            <li>Photocopy of Report Card/Grades</li>
+            <li>Certificate of Good Moral Character from the School</li>
+            <li>Voter's Certificate (Applicant & Parent/s)</li>
+        </ul>
+        <div class="note-box">
+            <strong>MSWDO Cert:</strong> Required for PWD or Solo Parents.
+        </div>
+
+        <div class="qr-container">
+            <p style="font-size: 0.7rem; font-weight: 700; margin-bottom: 8px; color: var(--blue);">Learn more about GTFAP</p>
+            <div id="qrcode"></div>
+            <p style="font-size: 0.6rem; margin-top: 5px; color: #666;">Scan to apply or learn more</p>
+        </div>
+    </div>
+
+    <div class="panel">
+        <h2>📘 About the Program</h2>
+        <p>A scholarship initiative of the Municipal Government of Tangalan to support low-income families.</p>
+        <h2>💰 Assistance</h2>
+        <div class="money-box">
+            <span class="amount">₱4,000</span><br>
+            <small style="font-weight: 600; letter-spacing: 1px;">PER SEMESTER</small><br>
+            <div style="height: 1px; background: rgba(255,255,255,0.2); margin: 8px 0;"></div>
+            <span style="font-size: 1.1rem; font-weight: 700; color: var(--gold);">₱8,000 PER YEAR</span>
+        </div>
+
+        <h2>📚 To Continue</h2>
+        <ul>
+            <li>Maintain 75% GPA or higher</li>
+            <li>No dropped subjects</li>
+            <li>Plant 5 seedlings per semester</li>
+            <li>Community service participation</li>
+        </ul>
+        <p style="font-size: 0.7rem; color: #d63031; margin-top: 8px; font-weight: 700;">
+            🩸 Optional: Blood donation to MHO/PRC.
+        </p>
+        
+        <div style="margin-top: auto; border-top: 1px solid #eee; padding-top: 10px;">
+             <p style="font-size: 0.7rem; color: #777;"><strong>Limitation:</strong> Only one (1) member per immediate family may avail.</p>
+        </div>
+    </div>
+
+    <div class="panel panel-front">
+        <img src="logoweb.png" alt="Tangalan Seal" class="seal-large">
+        
+        <div class="panel-title">
+            GOVERNMENT TERTIARY FINANCIAL ASSISTANCE PROGRAM
+        </div>
+        
+        <p style="font-weight: 700; color: var(--gold); letter-spacing: 2px; font-size: 1.3rem; margin: 0;">(GTFAP)</p>
+        
+        <p style="margin-top: 25px; font-size: 1rem; color: #ffffff; font-weight: 400; line-height: 1.4;">
+            Municipality of Tangalan<br>
+            Province of Aklan
+        </p>
+        
+        <div class="location-box">
+            <strong style="color: var(--gold); text-transform: uppercase; font-size: 0.75rem;">Submit at:</strong><br>
+            <span style="font-weight: 600; font-size: 0.95rem;">Office of the Municipal Mayor</span><br>
+            Scholarship Secretariat<br>
+            2nd Floor, Municipal Building
+        </div>
+        
+        <div style="margin-top: auto; font-size: 0.7rem; opacity: 0.8; font-style: italic;">
+            <strong> "At least one professional per family" </strong>
+        </div>
+    </div>
+</div>
+
+<script>
+    // Generate QR Code for Vercel Site
+    new QRCode(document.getElementById("qrcode"), {
+        text: "https://gtfap-tangalanaklan.vercel.app/",
+        width: 100,
+        height: 100,
+        colorDark : "#003399",
+        colorLight : "#ffffff",
+        correctLevel : QRCode.CorrectLevel.H
+    });
+</script>
+
+</body>
+</html>
